@@ -1,4 +1,3 @@
-
   // This problem asks to sum the values in a diagonal spiral like the one below
 	/*21 22 23 24 25
 	  20  7  8  9 10
