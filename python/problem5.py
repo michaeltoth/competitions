@@ -21,6 +21,6 @@ def findSmallest(highestDivisor):
      while not divides(current,highestDivisor):
           current += 1
 
-     # returns when we exit the while loop
+     # returns current number when we exit the while loop
      print current 
            
