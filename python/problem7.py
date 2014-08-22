@@ -16,16 +16,25 @@ def nth_prime(num):
 
      # Prime number theorem on upper bound (only works for n > 6, otherwise use different function below) 
      bound = int(math.floor(num * (math.log(num) + math.log(math.log(num)))))
-     numlist = range(2, bound)
+     
+     # Used for outer loop, only need to go to sqrt of upper bound 
+     sqrt_bound = int(math.floor(math.sqrt(bound + 1) + 1))
     
+     # Instantiate a true/false array with first 2 elements false and remaining true. 
+     prime_bool = [False]*2 + [True]*(bound-1)
+     
+     # Loop over range from 2 to bound + 1 (array indexing at 0)
+     for i in xrange(2, sqrt_bound):
+          # Turn all multiples of i to false: 
+          for j in xrange(i * 2, bound+1, i):
+              prime_bool[j] = False 
 
-     for i in range(len(numlist)):
-         for j in range(i+1,len(numlist)):
-              # Remove elements from list that are divisible by previous elements:  
-              if numlist[j] % numlist[i] == 0:
+     # Convert boolean list to prime list using enumerate to get indices:
+     prime_list = [i for i, x in enumerate(prime_bool) if x == True] 
+     print prime_list[num - 1]
+
      
 
-     print numlist 
 
 
 
