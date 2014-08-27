@@ -12,6 +12,5 @@ def sum_primes(num):
                
      # Convert boolean list to prime list using enumerate to get indices:
 
-     #prime_sum = sum([i for i, x in enumerate(prime_bool) if x == True])
      prime_sum = reduce(lambda x, y: x+y, [i for i, x in enumerate(prime_bool) if x == True])
      print prime_sum
