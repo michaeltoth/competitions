@@ -29,9 +29,9 @@ def row_max(grid,num_rows):
 
 def diag_max(grid,num_rows,num_cols):
     # Loops through variables p and q where p is the number of the diagonal and q is the index along the diagonal.
-	# Converts p and q into (x,y) space for indexing from the grid in the pos_diags and neg_diags variables.
+    # Converts p and q into (x,y) space for indexing from the grid in the pos_diags and neg_diags variables.
 	
-	# Up and right
+    # Up and right
     pos_diags = [[grid[q][p-q]
         for q in range(min(p, num_rows-1), max(0, p-num_cols+1)-1, -1)]
         for p in range(num_rows+num_cols-1)]	
