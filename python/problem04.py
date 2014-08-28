@@ -1,9 +1,5 @@
 def isPalindrome(num):
-	# converts number to string and checks against the reverse by incrementing by negative 1
-	if str(num) == str(num)[::-1]:
-		return True
-	else:
-		return False
+	return True if str(num) == str(num)[::-1] else False
 	
 largest = 0
 # Uses a double for loop over three digit numbers
