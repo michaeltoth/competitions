@@ -10,9 +10,4 @@ def collatz(num):
 
 
 def longest_collatz(num):
-	longest = 0
-	for i in range(num):
-		if collatz(i) > longest: 
-			longest = collatz(i)
-			longest_num = i 
-	print longest_num
+	print max((i for i in range(num)), key = lambda x: collatz(x)) 
