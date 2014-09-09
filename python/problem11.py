@@ -2,18 +2,18 @@ from operator import mul
 
 # Loads the grid from file and formats as a 2d list
 def get_grid(input_file):
-	with open('problem11_grid.txt', 'r') as f:
-		 lines = f.read().splitlines()
-	f.close()
+    with open('problem11_grid.txt', 'r') as f:
+        lines = f.read().splitlines()
+    f.close()
 
-	# This takes the text grid and converts it to a 2d integer array
-	my_grid = []
-	for i in range(0,len(lines)):
-		my_grid.append(lines[i].split(" "))
-		for n in range(0,len(my_grid[i])):
-			my_grid[i][n] = int(my_grid[i][n])
+    # This takes the text grid and converts it to a 2d integer array
+    my_grid = []
+    for i in range(0,len(lines)):
+        my_grid.append(lines[i].split(" "))
+        for n in range(0,len(my_grid[i])):
+            my_grid[i][n] = int(my_grid[i][n])
 	
-	return my_grid
+    return my_grid
 
 # Returns column i of a 2d grid
 def get_column(matrix, i):
