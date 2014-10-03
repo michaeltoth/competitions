@@ -8,3 +8,7 @@ setwd("~/Documents/Projects/Kaggle/Titanic")
 train <- read.csv("~/Documents/Projects/Kaggle/Titanic/train.csv")
 test <- read.csv("~/Documents/Projects/Kaggle/Titanic/test.csv")
 
+# Predict that all died
+test$Survived <- rep(0,418)
+submit <- data.frame(PassengerId = test$PassengerId, Survived = test$Survived)
+write.csv(submit, file = "theyalldie.csv", row.names = FALSE)
