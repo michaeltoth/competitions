@@ -11,5 +11,5 @@ This repository contains code and files used for the [Titanic competition](http:
 *onlymendie.csv*: Created in titanic.R.  Slightly more advanced prediction that all men die and all women survive  
 *femalesclassfare*: Created in titanic.R.  Prediction that all men die, and women in third class who paid more than $20 for a ticket also die.  This results in a slight accuracy increase  
 
-*decisiontree.R*: R code for decision tree predictions using rpart
-*firstdtree.csv*: First simple decision tree output based on variables already in file
+*decisiontree.R*: R code for decision tree predictions using rpart  
+*firstdtree.csv*: First simple decision tree output based on variables already in file  

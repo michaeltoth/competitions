@@ -26,3 +26,27 @@ fancyRpartPlot(fit)
 Prediction <- predict(fit, test, type = "class")
 submit <- data.frame(PassengerId = test$PassengerId, Survived = Prediction)
 write.csv(submit, file = "firstdtree.csv", row.names = FALSE)
+
+# Let's begin feature engineering.  We'll start by combining both data sets into
+# one to perform the same operations on both.  Need to fill Survived for test set
+test$Survived <- NA
+combi <- rbind(train, test)
+
+# Creating titles variable.  Convert name field from factor to character for manipulations:
+combi$Name <- as.character(combi$Name)
+
+# Extracting titles from Name variable:
+combi$Title <- sapply(combi$Name, FUN=function(x) 
+    {strsplit(x, split='[,.]')[[1]][2]})
+
+# Stripping spaces from beginning of title field:
+combi$Title <- sub(' ', '', combi$Title)
+
+# Combining obscure titles into groups.  May need to combine col/doctor after
+combi$Title[combi$Title %in% c('Mme', 'Mrs')] <- 'Mrs'
+combi$Title[combi$Title %in% c('Mlle', 'Ms', 'Miss')] <- 'Miss'
+combi$Title[combi$Title %in% c('Capt', 'Don', 'Major', 'Jonkheer', 'Sir')] <- 'Sir'
+combi$Title[combi$Title %in% c('Dona', 'the Countess', 'Lady')] <- 'Lady'
+
+# Convert titles back into factors for prediction
+combi$Title <- factor(combi$Title)
