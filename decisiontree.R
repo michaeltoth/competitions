@@ -140,3 +140,20 @@ varImpPlot(fit)
 Prediction <- predict(fit, test)
 submit <- data.frame(PassengerId = test$PassengerId, Survived = Prediction)
 write.csv(submit, file = "firstforest.csv", row.names = FALSE)
+
+# The random forest didn't improve results.  
+
+# Let's try a forest of conditional inference trees instead
+# install.packages('party')
+library(party)
+
+# Fitting the model
+set.seed(346)
+fit <- cforest(as.factor(Survived) ~ Pclass + Sex + Age + SibSp + Parch + Fare +
+               Embarked + Title + FamilySize + FamilyID, data = train, 
+               controls=cforest_unbiased(ntree=1000, mtry=3))
+
+# Create submission
+Prediction <- predict(fit, test, OOB=TRUE, type="response")
+submit <- data.frame(PassengerId = test$PassengerId, Survived = Prediction)
+write.csv(submit, file = "conditionalinference.csv", row.names = FALSE)

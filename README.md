@@ -15,3 +15,4 @@ This repository contains code and files used for the [Titanic competition](http:
 *firstdtree.csv*: First simple decision tree output based on variables already in file  
 *engineeredtree.csv*: More sophisticated tree built with engineered features  
 *firstforest.csv*: Random forest model  
+*conditionalinference.csv*: Forest of conditional inference trees model  
