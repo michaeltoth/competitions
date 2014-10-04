@@ -101,3 +101,42 @@ fancyRpartPlot(fit)
 Prediction <- predict(fit, test, type = "class")
 submit <- data.frame(PassengerId = test$PassengerId, Survived = Prediction)
 write.csv(submit, file = "engineeredtree.csv", row.names = FALSE)
+
+# RANDOM FORESTS
+# install.packages('randomForest')
+library(randomForest)
+
+# Filling in missing ages with decision tree
+Agefit <- rpart(Age ~ Pclass + Sex + SibSp + Parch + Fare + Embarked + Title +
+                    FamilySize, data=combi[!is.na(combi$Age),], method="anova")
+combi$Age[is.na(combi$Age)] <- predict(Agefit, combi[is.na(combi$Age),])
+
+# Filling in missing Embarked based on most frequent
+combi$Embarked[c(62,830)] = "S"
+combi$Embarked <- factor(combi$Embarked)
+
+# Filling in missing fare based on median fare
+combi$Fare[1044] <- median(combi$Fare, na.rm = TRUE)
+
+# R random forests can't handle factors with more than 32 levels, so reducing
+combi$FamilyID2 <- combi$FamilyID
+combi$FamilyID2 <- as.character(combi$FamilyID2)
+combi$FamilyID2[combi$FamilySize <= 3] <- 'Small'
+combi$FamilyID2 <- factor(combi$FamilyID2)
+
+# Split train and test back apart now:
+train <- combi[1:891,]
+test <- combi[892:1309,]
+
+set.seed(346)
+
+fit <- randomForest(as.factor(Survived) ~ Pclass + Sex + Age + SibSp + Parch +
+                    Fare + Embarked + Title + FamilySize + FamilyID2, 
+                    data=train, importance=TRUE, ntree=2000)
+
+# Look at important variables
+varImpPlot(fit)
+
+Prediction <- predict(fit, test)
+submit <- data.frame(PassengerId = test$PassengerId, Survived = Prediction)
+write.csv(submit, file = "firstforest.csv", row.names = FALSE)
