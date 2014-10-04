@@ -101,7 +101,7 @@ combi$FamilyID2 <- factor(combi$FamilyID2)
 train <- combi[1:891,]
 test <- combi[892:1309,]
 
-# Logistic regression in-sample predictions:
+# Simple logistic regression in-sample predictions:
 lrfit <- glm(Survived ~ Pclass + Sex + SibSp + Age + Parch + Fare + Embarked, 
              family=binomial, data=train)
 
@@ -113,10 +113,35 @@ compare <- data.frame(PassengerId = train$PassengerId, SurvivedP = PredictionTra
                       SurvivedT = train$Survived)
 accuracy <- sum(compare$SurvivedP == compare$SurvivedT) / nrow(compare)
 
-# Logistic regression test predictions:
+# Simple logistic regression test predictions:
 
 regout <- predict(lrfit, test)
 PredictionTest <- 1 / (1 + exp(-regout))
 PredictionTest <- round(PredictionTest)
 submit <- data.frame(PassengerId = test$PassengerId, Survived = PredictionTest)
 write.csv(submit, file = "logisticregression.csv", row.names = FALSE)
+
+
+# Logistic regression in-sample predictions using additional features:
+lrfit <- glm(Survived ~ Pclass + Sex + SibSp + Age + Parch + Fare + Embarked + 
+                 Title + FamilySize + FamilyID, family=binomial, data=train)
+
+regout <- predict(lrfit, train)
+PredictionTrain <- 1 / (1 + exp(-regout))
+PredictionTrain <- round(PredictionTrain)
+
+compare <- data.frame(PassengerId = train$PassengerId, SurvivedP = PredictionTrain, 
+                      SurvivedT = train$Survived)
+accuracy <- sum(compare$SurvivedP == compare$SurvivedT) / nrow(compare)
+
+# Logistic regression test predictions using additional features:
+
+# Remove familyID not in the training set (logistic regression fails otherwise)
+id <- which(test$FamilyID %in% "3Peacock")
+test$FamilyID[id] <- "Small"
+
+regout <- predict(lrfit, test)
+PredictionTest <- 1 / (1 + exp(-regout))
+PredictionTest <- round(PredictionTest)
+submit <- data.frame(PassengerId = test$PassengerId, Survived = PredictionTest)
+write.csv(submit, file = "logisticregressionengineered.csv", row.names = FALSE)

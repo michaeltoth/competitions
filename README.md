@@ -22,4 +22,4 @@ This repository contains code and files used for the [Titanic competition](http:
 ####Further exploration on my own  
 *logisticregression.R*: R code for logistic regression models  
 *logisticregression.csv*: First logistic regression using only provided variables  
-
+*logisticregressionengineered.csv*: Logistic regression with engineered features  
