@@ -1,3 +1,3 @@
 ## Competitions
 
-This repository contains all code for online competitions. Currently, the focus is on Kaggle competitions, but the focus may evolve over time. The repository also contains Project Euler problems I worked on in the past.
+This repository primarily focuses on code for Kaggle competitions, though it may expand in scope over time to contain other competitions also. It also contains code from Project Euler problems I've completed in the past.
